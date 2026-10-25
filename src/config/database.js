@@ -1,10 +1,17 @@
+require('dotenv').config();
 const {Sequelize} = require('sequelize')
 // Inisialisasi koneksi Sequelize
-const sequelizeConnect = new Sequelize('pawcheck', 'root', 'mysql123', {
-  host: 'localhost',
-  port: 3309,
-  dialect: 'mysql',
-});
+// Nilai diambil dari environment variable (file .env), lihat .env.example
+const sequelizeConnect = new Sequelize(
+  process.env.DB_NAME || 'pawcheck',
+  process.env.DB_USER || 'root',
+  process.env.DB_PASSWORD || '',
+  {
+    host: process.env.DB_HOST || 'localhost',
+    port: Number(process.env.DB_PORT) || 3309,
+    dialect: 'mysql',
+  }
+);
 
 (async () => {
   try{
